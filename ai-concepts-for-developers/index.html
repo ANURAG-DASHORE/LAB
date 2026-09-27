@@ -41,6 +41,33 @@
     display: none;
   }
 
+  .home-btn {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 60;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444746;
+    text-decoration: none;
+  }
+
+  .home-btn:hover {
+    background: #f1f3f4;
+  }
+
+  .home-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
   .menu-toggle:hover {
     background: #f1f3f4;
   }
@@ -318,6 +345,10 @@
   <button class="menu-toggle" id="menuToggle" aria-label="Toggle contents">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
   </button>
+
+  <a class="home-btn" href="../" aria-label="Back to Lab home" title="Back to Lab home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m2 8l9.732-4.866a.6.6 0 0 1 .536 0L22 8m-2 3v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"></path></svg>
+  </a>
 
   <div class="backdrop" id="backdrop"></div>
 
