@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Concepts for Developers - Google Docs</title>
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: #f8f9fa;
+    font-family: Arial, "Google Sans", "Helvetica Neue", sans-serif;
+    color: #202124;
+  }
+
+  .layout {
+    min-height: 100vh;
+  }
+
+  /* ---------- Menu toggle ---------- */
+  .menu-toggle {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 60;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #444746;
+  }
+
+  body.panel-open .menu-toggle {
+    display: none;
+  }
+
+  .menu-toggle:hover {
+    background: #f1f3f4;
+  }
+
+  .menu-toggle svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(32,33,36,0.35);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+    z-index: 40;
+  }
+
+  .backdrop.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* ---------- Outline sidebar ---------- */
+  .tabs-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 100vh;
+    background: #ffffff;
+    border-right: 1px solid #dadce0;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 50;
+  }
+
+  .tabs-panel.open {
+    transform: translateX(0);
+  }
+
+  .tabs-header {
+    padding: 20px 20px 14px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #3c4043;
+    border-bottom: 1px solid #e8eaed;
+  }
+
+  .outline-scroll {
+    flex: 1;
+    overflow-y: scroll;
+    padding: 8px 0 24px;
+  }
+
+  .outline-scroll::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .outline-scroll::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  .outline-scroll::-webkit-scrollbar-thumb {
+    background-color: #dadce0;
+    border-radius: 6px;
+    border: 2px solid #ffffff;
+  }
+
+  .outline-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #bdc1c6;
+  }
+
+  .outline-row a {
+    display: block;
+    padding: 8px 20px;
+    font-size: 13.5px;
+    color: #202124;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 0 20px 20px 0;
+    margin-right: 12px;
+  }
+
+  .outline-row.level-2 a {
+    padding-left: 40px;
+    font-size: 13px;
+    color: #3c4043;
+  }
+
+  .outline-row a:hover {
+    background: #f1f3f4;
+  }
+
+  .outline-row a.active {
+    background: #d3e3fd;
+    color: #001d35;
+    font-weight: 500;
+  }
+
+  .outline-row a.active:hover {
+    background: #d3e3fd;
+  }
+
+  /* ---------- Document page ---------- */
+  /* ---------- Document page ---------- */
+  .page-wrap {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 40px 40px 120px;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 816px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
+    padding: 76px 96px;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  .doc-title {
+    font-size: 26pt;
+    font-weight: 700;
+    color: #202124;
+    margin: 0 0 10px;
+    line-height: 1.25;
+  }
+
+  .doc-subtitle {
+    font-size: 11pt;
+    color: #3c4043;
+    margin: 0 0 34px;
+  }
+
+  h1.module-heading {
+    font-size: 20pt;
+    font-weight: 700;
+    color: #202124;
+    margin: 40px 0 4px;
+  }
+
+  section.module:first-of-type h1.module-heading {
+    margin-top: 0;
+  }
+
+  p.source-line {
+    font-size: 11pt;
+    font-style: italic;
+    margin: 0 0 18px;
+  }
+
+  p.source-line a {
+    color: #1155cc;
+    text-decoration: underline;
+    font-style: italic;
+  }
+
+  h2.sub-heading {
+    font-size: 15pt;
+    font-weight: 700;
+    color: #202124;
+    margin: 22px 0 10px;
+  }
+
+  p.body-text {
+    margin: 0 0 14px;
+    color: #202124;
+  }
+
+  ul.concept-list {
+    margin: 0 0 8px;
+    padding-left: 24px;
+  }
+
+  ul.concept-list li {
+    margin: 0 0 10px;
+    padding-left: 4px;
+  }
+
+  ul.concept-list li strong {
+    font-weight: 700;
+  }
+
+  ol.rag-list {
+    margin: 0 0 8px;
+    padding-left: 24px;
+  }
+
+  ol.rag-list li {
+    margin: 0 0 10px;
+    padding-left: 4px;
+  }
+
+  ol.rag-list li strong {
+    font-weight: 700;
+  }
+
+  footer.doc-footer {
+    margin-top: 48px;
+    padding-top: 18px;
+    border-top: 1px solid #dadce0;
+    font-size: 10pt;
+    color: #5f6368;
+  }
+
+  footer.doc-footer a {
+    color: #1155cc;
+    text-decoration: underline;
+  }
+
+  .footer-downloads {
+    margin-top: 16px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 10.5pt;
+    font-weight: 500;
+    text-decoration: none;
+    line-height: 1;
+  }
+
+  .dl-btn svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+
+  .dl-btn-outline {
+    background: #ffffff;
+    color: #3c4043 !important;
+    border: 1px solid #dadce0;
+    text-decoration: none !important;
+  }
+
+  .dl-btn-outline:hover {
+    background: #f1f3f4;
+  }
+
+  .dl-btn-filled {
+    background: #1a73e8;
+    color: #ffffff !important;
+    border: 1px solid #1a73e8;
+    text-decoration: none !important;
+  }
+
+  .dl-btn-filled:hover {
+    background: #1765cc;
+  }
+
+  @media (max-width: 900px) {
+    .page { padding: 50px 36px; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle contents">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+  </button>
+
+  <div class="backdrop" id="backdrop"></div>
+
+  <aside class="tabs-panel" id="tabsPanel">
+    <div class="tabs-header">Contents</div>
+
+    <nav class="outline-scroll">
+      <div class="outline-row level-1"><a href="#doc-top">AI Concepts for Developers and Technology Professionals</a></div>
+
+      <div class="outline-row level-1"><a href="#module-1">Module 1: Get Started with AI Fundamentals</a></div>
+      <div class="outline-row level-2"><a href="#module-1-overview">Overview</a></div>
+      <div class="outline-row level-2"><a href="#module-1-concepts">Core Concepts</a></div>
+
+      <div class="outline-row level-1"><a href="#module-2">Module 2: Fundamentals of Generative AI</a></div>
+      <div class="outline-row level-2"><a href="#module-2-overview">Overview</a></div>
+      <div class="outline-row level-2"><a href="#module-2-concepts">Core Concepts</a></div>
+
+      <div class="outline-row level-1"><a href="#module-3">Module 3: Introduction to Natural Language Processing</a></div>
+      <div class="outline-row level-2"><a href="#module-3-overview">Overview</a></div>
+      <div class="outline-row level-2"><a href="#module-3-concepts">Core Concepts</a></div>
+
+      <div class="outline-row level-1"><a href="#module-4">Module 4: Introduction to AI Speech</a></div>
+      <div class="outline-row level-2"><a href="#module-4-overview">Overview</a></div>
+      <div class="outline-row level-2"><a href="#module-4-concepts">Core Concepts</a></div>
+
+      <div class="outline-row level-1"><a href="#module-5">Module 5: Introduction to Computer Vision</a></div>
+      <div class="outline-row level-2"><a href="#module-5-overview">Overview</a></div>
+      <div class="outline-row level-2"><a href="#module-5-concepts">Core Concepts</a></div>
+
+      <div class="outline-row level-1"><a href="#module-6">Module 6: Introduction to Information Extraction</a></div>
+      <div class="outline-row level-2"><a href="#module-6-overview">Overview</a></div>
+      <div class="outline-row level-2"><a href="#module-6-concepts">Core Concepts</a></div>
+
+      <div class="outline-row level-1"><a href="#module-7">Module 7: Retrieval-Augmented Generation (RAG) Fundamentals</a></div>
+      <div class="outline-row level-2"><a href="#module-7-overview">Overview</a></div>
+      <div class="outline-row level-2"><a href="#module-7-concepts">Architecture &amp; Workflow</a></div>
+    </nav>
+  </aside>
+
+  <div class="page-wrap">
+    <article class="page">
+
+      <h1 class="doc-title" id="doc-top">AI Concepts for Developers and Technology Professionals</h1>
+      <p class="doc-subtitle">This guide synthesizes core artificial intelligence concepts based on Microsoft Learn training modules, tailored specifically for developers and technology professionals looking to build, understand, and integrate AI solutions into their systems. All training links include the required Microsoft Student Ambassadors contributor ID.</p>
+
+      <section class="module" id="module-1">
+        <h1 class="module-heading">Module 1: Get Started with AI Fundamentals</h1>
+        <p class="source-line">Source: <a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Microsoft Learn - Get Started with AI Fundamentals</a></p>
+
+        <h2 class="sub-heading" id="module-1-overview">Overview</h2>
+        <p class="body-text">Artificial Intelligence (AI) is a broad field of computer science focused on creating systems capable of performing tasks that typically require human intelligence. For developers, understanding AI means shifting from deterministic programming (if-this-then-that) to probabilistic modeling.</p>
+
+        <h2 class="sub-heading" id="module-1-concepts">Core Concepts</h2>
+        <ul class="concept-list">
+          <li><strong>Machine Learning (ML):</strong> The foundation of modern AI where systems learn from data rather than explicit rules. Models are trained on historical data to make predictions or decisions on unseen data.</li>
+          <li><strong>Deep Learning:</strong> A specialized subset of machine learning based on multi-layered artificial neural networks inspired by the human brain. It excels at unstructured data processing like images, audio, and text.</li>
+          <li><strong>Responsible AI:</strong> A critical framework for developers to ensure fairness, reliability, safety, privacy, inclusivity, transparency, and accountability in AI applications.</li>
+          <li><strong>Azure AI Services:</strong> Cloud-based APIs and services that allow developers to easily embed pre-built intelligence (vision, speech, language, decision-making) into applications without building models from scratch.</li>
+        </ul>
+      </section>
+
+      <section class="module" id="module-2">
+        <h1 class="module-heading">Module 2: Fundamentals of Generative AI</h1>
+        <p class="source-line">Source: <a href="https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Microsoft Learn - Fundamentals of Generative AI</a></p>
+
+        <h2 class="sub-heading" id="module-2-overview">Overview</h2>
+        <p class="body-text">Generative AI shifts AI from analytical tasks (classification, regression) to creative and synthesis tasks, enabling systems to generate brand-new content such as text, images, code, audio, and video.</p>
+
+        <h2 class="sub-heading" id="module-2-concepts">Core Concepts</h2>
+        <ul class="concept-list">
+          <li><strong>Foundation Models:</strong> Large-scale machine learning models trained on vast corpuses of diverse, unstructured data (e.g., GPT models, diffusion models) that can be adapted to a wide variety of downstream tasks.</li>
+          <li><strong>Large Language Models (LLMs):</strong> Foundation models specifically optimized for natural language understanding and generation. They predict the next most likely token based on a given context window.</li>
+          <li><strong>Prompt Engineering:</strong> The practice of structuring text prompts, instructions, and context effectively to guide LLMs toward producing accurate, relevant, and formatted outputs.</li>
+          <li><strong>Tokens and Embeddings:</strong> Tokens are the chunks of text (words or sub-words) that LLMs process. Embeddings are numerical vector representations of data that capture semantic meaning, enabling mathematical comparison of concepts.</li>
+        </ul>
+      </section>
+
+      <section class="module" id="module-3">
+        <h1 class="module-heading">Module 3: Introduction to Natural Language Processing (Language)</h1>
+        <p class="source-line">Source: <a href="https://learn.microsoft.com/en-us/training/modules/introduction-language/?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Microsoft Learn - Introduction to Natural Language Processing</a></p>
+
+        <h2 class="sub-heading" id="module-3-overview">Overview</h2>
+        <p class="body-text">Natural Language Processing (NLP) enables software to read, analyze, interpret, and generate human language, bridging the gap between human communication and computer comprehension.</p>
+
+        <h2 class="sub-heading" id="module-3-concepts">Core Concepts</h2>
+        <ul class="concept-list">
+          <li><strong>Text Analysis &amp; Sentiment Analysis:</strong> Determining the emotional tone (positive, negative, neutral) behind a body of text, commonly used in customer feedback monitoring and social listening.</li>
+          <li><strong>Named Entity Recognition (NER):</strong> Identifying and classifying key entities (such as people, organizations, locations, dates, and monetary values) within unstructured text.</li>
+          <li><strong>Language Translation &amp; Summarization:</strong> Automatically converting text between languages while preserving semantic context, or condensing long-form documents into key takeaway summaries.</li>
+          <li><strong>Azure AI Language:</strong> A suite of managed services providing pre-built models for text analytics, conversational language understanding (CLU), and question answering.</li>
+        </ul>
+      </section>
+
+      <section class="module" id="module-4">
+        <h1 class="module-heading">Module 4: Introduction to AI Speech</h1>
+        <p class="source-line">Source: <a href="https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Microsoft Learn - Introduction to AI Speech</a></p>
+
+        <h2 class="sub-heading" id="module-4-overview">Overview</h2>
+        <p class="body-text">Speech services empower applications with audio capabilities, turning spoken language into actionable text and synthesizing natural-sounding human voices from text inputs.</p>
+
+        <h2 class="sub-heading" id="module-4-concepts">Core Concepts</h2>
+        <ul class="concept-list">
+          <li><strong>Speech-to-Text (Transcription):</strong> Converting spoken audio streams or recordings into written text. This involves acoustic modeling (recognizing sounds) and language modeling (recognizing word sequences).</li>
+          <li><strong>Text-to-Speech (Synthesis):</strong> Generating realistic human-like audio output from text data, incorporating natural intonation, pitch, and emotion.</li>
+          <li><strong>Speech Translation &amp; Voice Customization:</strong> Real-time translation of spoken audio across languages and the creation of custom neural voice models tailored to brand identities.</li>
+        </ul>
+      </section>
+
+      <section class="module" id="module-5">
+        <h1 class="module-heading">Module 5: Introduction to Computer Vision</h1>
+        <p class="source-line">Source: <a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Microsoft Learn - Introduction to Computer Vision</a></p>
+
+        <h2 class="sub-heading" id="module-5-overview">Overview</h2>
+        <p class="body-text">Computer vision enables software systems to derive meaningful information from digital images, videos, and other visual inputs, replicating and automating human visual comprehension.</p>
+
+        <h2 class="sub-heading" id="module-5-concepts">Core Concepts</h2>
+        <ul class="concept-list">
+          <li><strong>Image Classification:</strong> Categorizing an entire image into a predefined class or label (e.g., "dog," "cat," "defective part").</li>
+          <li><strong>Object Detection:</strong> Identifying both the class and the precise spatial location of multiple objects within an image using bounding boxes.</li>
+          <li><strong>Image Segmentation &amp; Facial Recognition:</strong> Pixel-level classification of image regions and identification or verification of human faces for biometric security and analytics.</li>
+          <li><strong>Optical Character Recognition (OCR):</strong> Extracting printed or handwritten text from images, documents, and signs.</li>
+        </ul>
+      </section>
+
+      <section class="module" id="module-6">
+        <h1 class="module-heading">Module 6: Introduction to Information Extraction</h1>
+        <p class="source-line">Source: <a href="https://learn.microsoft.com/en-us/training/modules/introduction-information-extraction/?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Microsoft Learn - Introduction to Information Extraction</a></p>
+
+        <h2 class="sub-heading" id="module-6-overview">Overview</h2>
+        <p class="body-text">Information extraction automates the transformation of unstructured or semi-structured documents (invoices, receipts, contracts) into structured, queryable data formats (JSON, databases).</p>
+
+        <h2 class="sub-heading" id="module-6-concepts">Core Concepts</h2>
+        <ul class="concept-list">
+          <li><strong>Document Intelligence:</strong> Leveraging machine learning to parse complex layouts, tables, checkboxes, and key-value pairs from documents.</li>
+          <li><strong>Custom Models:</strong> Training models on specific document types to automatically extract fields unique to an enterprise workflow (e.g., purchase order numbers, line items).</li>
+          <li><strong>Data Pipeline Integration:</strong> Feeding extracted document data directly into downstream ERP, CRM, or analytics systems to eliminate manual data entry.</li>
+        </ul>
+      </section>
+
+      <section class="module" id="module-7">
+        <h1 class="module-heading">Module 7: Retrieval-Augmented Generation (RAG) Fundamentals</h1>
+        <p class="source-line">Source: <a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Microsoft Learn - RAG Fundamentals</a></p>
+
+        <h2 class="sub-heading" id="module-7-overview">Overview</h2>
+        <p class="body-text">While LLMs possess vast general knowledge, they suffer from static training cutoffs and lack access to private enterprise data. Retrieval-Augmented Generation (RAG) solves this by connecting LLMs to external data sources.</p>
+
+        <h2 class="sub-heading" id="module-7-concepts">Architecture &amp; Workflow</h2>
+        <ol class="rag-list">
+          <li><strong>Ingestion &amp; Chunking:</strong> Enterprise documents (PDFs, wikis, databases) are split into smaller chunks and converted into vector embeddings.</li>
+          <li><strong>Vector Store:</strong> Embeddings are stored in a specialized vector database (e.g., Azure AI Search, Pinecone, FAISS) for rapid similarity searching.</li>
+          <li><strong>Retrieval:</strong> When a user submits a query, the system searches the vector database for the most semantically relevant document chunks.</li>
+          <li><strong>Augmentation &amp; Generation:</strong> The retrieved context chunks are combined with the user's original prompt and fed into the LLM, enabling the model to generate accurate, source-grounded answers without hallucinations.</li>
+        </ol>
+      </section>
+
+      <footer class="doc-footer">
+        Compiled by Anurag Dashore. Sourced from Microsoft Learn training modules.
+        <div class="footer-downloads">
+          <a class="dl-btn dl-btn-outline" href="https://github.com/ANURAG-DASHORE/LAB/blob/main/ai-concepts-for-developers/ai_concepts_for_developers.md" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            View source (.md)
+          </a>
+          <a class="dl-btn dl-btn-filled" href="https://raw.githubusercontent.com/ANURAG-DASHORE/LAB/main/ai-concepts-for-developers/AI%20Concepts%20for%20Developers.pdf" download="AI Concepts for Developers.pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><polyline points="7 11 12 16 17 11"></polyline><path d="M5 20h14"></path></svg>
+            Download PDF
+          </a>
+        </div>
+      </footer>
+
+    </article>
+  </div>
+
+</div>
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const tabsPanel = document.getElementById('tabsPanel');
+  const backdrop = document.getElementById('backdrop');
+  const navLinks = document.querySelectorAll('.outline-row a');
+
+  function openPanel() {
+    tabsPanel.classList.add('open');
+    backdrop.classList.add('show');
+    document.body.classList.add('panel-open');
+  }
+  function closePanel() {
+    tabsPanel.classList.remove('open');
+    backdrop.classList.remove('show');
+    document.body.classList.remove('panel-open');
+  }
+
+  menuToggle.addEventListener('click', () => {
+    tabsPanel.classList.contains('open') ? closePanel() : openPanel();
+  });
+  backdrop.addEventListener('click', closePanel);
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      closePanel();
+    });
+  });
+</script>
+</body>
+</html>
