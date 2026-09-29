@@ -21,6 +21,20 @@ A single-page, 7-module reference guide synthesizing key Artificial Intelligence
 
 ---
 
+### 🤖 [ML Concepts for Developers](./ml-concepts-for-developers)
+A single-page, 6-module reference guide synthesizing the Microsoft Learn "Create machine learning models" path, from core concepts to deep learning.
+
+* **Module 1:** Introduction to Machine Learning Concepts
+* **Module 2:** Explore and Analyze Data with Python (NumPy, Pandas, Matplotlib)
+* **Module 3:** Train and Evaluate Regression Models
+* **Module 4:** Train and Evaluate Classification Models
+* **Module 5:** Train and Evaluate Clustering Models
+* **Module 6:** Train and Evaluate Deep Learning Models
+
+🔗 **Live Guide:** [anurag-dashore.github.io/LAB/ml-concepts-for-developers/](https://anurag-dashore.github.io/LAB/ml-concepts-for-developers/)
+
+---
+
 ## 🎯 Purpose & Vision
 
 The goal of this repository is to break down complex enterprise learning paths—such as **Microsoft Learn** modules and cloud documentation—into bite-sized, structured, and easily digestible web guides.
