@@ -35,6 +35,13 @@ A single-page, 6-module reference guide synthesizing the Microsoft Learn "Create
 
 ---
 
+### 🏆 [Inside the Game: Developer Hackathon](./Inside-the-Game_Developer-Hackathon)
+Curated free Microsoft resources for the Microsoft + Premier League developer hackathon: Foundry, AI agents, Fabric Real-Time Intelligence, Translator, and GitHub Copilot.
+
+🔗 **Live Guide:** [anurag-dashore.github.io/LAB/Inside-the-Game_Developer-Hackathon/](https://anurag-dashore.github.io/LAB/Inside-the-Game_Developer-Hackathon/)
+
+---
+
 ## 🎯 Purpose & Vision
 
 The goal of this repository is to break down complex enterprise learning paths—such as **Microsoft Learn** modules and cloud documentation—into bite-sized, structured, and easily digestible web guides.

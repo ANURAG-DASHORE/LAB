@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inside the Game: Developer Hackathon</title>
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: #f8f9fa;
+    font-family: Arial, "Google Sans", "Helvetica Neue", sans-serif;
+    color: #202124;
+  }
+
+  .layout {
+    min-height: 100vh;
+  }
+
+  /* ---------- Menu toggle ---------- */
+  .menu-toggle {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 60;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #444746;
+  }
+
+  body.panel-open .menu-toggle {
+    display: none;
+  }
+
+  .home-btn {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 60;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444746;
+    text-decoration: none;
+  }
+
+  .home-btn:hover {
+    background: #f1f3f4;
+  }
+
+  .home-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .menu-toggle:hover {
+    background: #f1f3f4;
+  }
+
+  .menu-toggle svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(32,33,36,0.35);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+    z-index: 40;
+  }
+
+  .backdrop.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* ---------- Outline sidebar ---------- */
+  .tabs-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 100vh;
+    background: #ffffff;
+    border-right: 1px solid #dadce0;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 50;
+  }
+
+  .tabs-panel.open {
+    transform: translateX(0);
+  }
+
+  .tabs-header {
+    padding: 20px 20px 14px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #3c4043;
+    border-bottom: 1px solid #e8eaed;
+  }
+
+  .outline-scroll {
+    flex: 1;
+    overflow-y: scroll;
+    padding: 8px 0 24px;
+  }
+
+  .outline-scroll::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .outline-scroll::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  .outline-scroll::-webkit-scrollbar-thumb {
+    background-color: #dadce0;
+    border-radius: 6px;
+    border: 2px solid #ffffff;
+  }
+
+  .outline-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #bdc1c6;
+  }
+
+  .outline-row a {
+    display: block;
+    padding: 8px 20px;
+    font-size: 13.5px;
+    color: #202124;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 0 20px 20px 0;
+    margin-right: 12px;
+  }
+
+  .outline-row.level-2 a {
+    padding-left: 40px;
+    font-size: 13px;
+    color: #3c4043;
+  }
+
+  .outline-row a:hover {
+    background: #f1f3f4;
+  }
+
+  .outline-row a.active {
+    background: #d3e3fd;
+    color: #001d35;
+    font-weight: 500;
+  }
+
+  .outline-row a.active:hover {
+    background: #d3e3fd;
+  }
+
+  /* ---------- Document page ---------- */
+  /* ---------- Document page ---------- */
+  .page-wrap {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 40px 40px 120px;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 816px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
+    padding: 76px 96px;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  .doc-title {
+    font-size: 26pt;
+    font-weight: 700;
+    color: #202124;
+    margin: 0 0 10px;
+    line-height: 1.25;
+  }
+
+  .doc-subtitle {
+    font-size: 11pt;
+    color: #3c4043;
+    margin: 0 0 34px;
+  }
+
+  h1.module-heading {
+    font-size: 20pt;
+    font-weight: 700;
+    color: #202124;
+    margin: 40px 0 4px;
+  }
+
+  section.module:first-of-type h1.module-heading {
+    margin-top: 0;
+  }
+
+  p.source-line {
+    font-size: 11pt;
+    font-style: italic;
+    margin: 0 0 18px;
+  }
+
+  p.source-line a {
+    color: #1155cc;
+    text-decoration: underline;
+    font-style: italic;
+  }
+
+  h2.sub-heading {
+    font-size: 15pt;
+    font-weight: 700;
+    color: #202124;
+    margin: 22px 0 10px;
+  }
+
+  p.body-text {
+    margin: 0 0 14px;
+    color: #202124;
+  }
+
+  ul.concept-list {
+    margin: 0 0 8px;
+    padding-left: 24px;
+  }
+
+  ul.concept-list li {
+    margin: 0 0 10px;
+    padding-left: 4px;
+  }
+
+  ul.concept-list li strong {
+    font-weight: 700;
+  }
+
+  ol.rag-list {
+    margin: 0 0 8px;
+    padding-left: 24px;
+  }
+
+  ol.rag-list li {
+    margin: 0 0 10px;
+    padding-left: 4px;
+  }
+
+  ol.rag-list li strong {
+    font-weight: 700;
+  }
+
+  footer.doc-footer {
+    margin-top: 48px;
+    padding-top: 18px;
+    border-top: 1px solid #dadce0;
+    font-size: 10pt;
+    color: #5f6368;
+  }
+
+  footer.doc-footer a {
+    color: #1155cc;
+    text-decoration: underline;
+  }
+
+  .footer-downloads {
+    margin-top: 16px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 10.5pt;
+    font-weight: 500;
+    text-decoration: none;
+    line-height: 1;
+  }
+
+  .dl-btn svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+
+  .dl-btn-outline {
+    background: #ffffff;
+    color: #3c4043 !important;
+    border: 1px solid #dadce0;
+    text-decoration: none !important;
+  }
+
+  .dl-btn-outline:hover {
+    background: #f1f3f4;
+  }
+
+  .dl-btn-filled {
+    background: #1a73e8;
+    color: #ffffff !important;
+    border: 1px solid #1a73e8;
+    text-decoration: none !important;
+  }
+
+  .dl-btn-filled:hover {
+    background: #1765cc;
+  }
+
+  @media (max-width: 900px) {
+    .page { padding: 50px 36px; }
+  }
+
+  .res { list-style:none; margin:0 0 8px; padding:0; }
+  .res li { border-top:1px solid #e8eaed; padding:12px 0; }
+  .res li:last-child { border-bottom:1px solid #e8eaed; }
+  .res a { color:#1155cc; font-weight:700; text-decoration:none; }
+  .res a:hover { text-decoration:underline; }
+  .res p { margin:4px 0 0; color:#3c4043; font-size:10.5pt; }
+  @media (max-width:700px){ .page-wrap{padding:72px 12px 80px;} .page{padding:32px 22px;} .doc-title{font-size:21pt;} }
+  img.poster { display:block; width:100%; height:auto; border-radius:6px; margin:0 0 28px; box-shadow:0 1px 3px rgba(0,0,0,0.12); }
+</style>
+</head>
+<body>
+<div class="layout">
+<a class="home-btn" href="../" aria-label="Back to Lab home" title="Back to Lab home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m2 8l9.732-4.866a.6.6 0 0 1 .536 0L22 8m-2 3v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"></path></svg></a>
+<div class="page-wrap">
+<div class="page">
+<h1 class="doc-title">Inside the Game: Developer Hackathon</h1>
+<p class="doc-subtitle">Microsoft + Premier League &middot; Resource hub</p>
+
+<img class="poster" src="inside-the-game-poster.jpg" alt="Inside the Game: Developer Hackathon poster. Prize pool $50,000 USD, hacking dates October 6 to October 27, 2026, registration deadline October 20, 2026." width="1254" height="1254">
+
+<h2 class="sub-heading">Overview</h2>
+<p class="body-text">Microsoft and the Premier League invite developers worldwide to join Inside the Game: Developer Hackathon and build AI-powered solutions that transform synthetic, football-realistic data into explainable match intelligence, real-time narratives, and automated match recaps for studio, broadcast, or streaming scenarios.</p>
+
+<h2 class="sub-heading">Key dates</h2>
+<ul class="concept-list">
+<li><strong>Registration deadline:</strong> October 20, 2026, 12:00 PM Pacific Time (12:30 AM IST on October 21)</li>
+<li><strong>Hacking period:</strong> October 6 to October 27, 2026, 11:59 PM Pacific Time (12:29 PM IST on October 28)</li>
+</ul>
+
+<p class="body-text">Create and submit an AI solution to climb the leaderboard and compete for a share of $50,000 USD in cash prizes, event tickets, and more.</p>
+
+<h2 class="sub-heading">What to build</h2>
+<p class="body-text">The strongest submissions will leverage GitHub, GitHub Copilot, Microsoft Foundry, Azure AI Services, Microsoft Fabric and other Azure Database and Analytics services, and the Azure cloud-native services to create AI-powered applications and agents that:</p>
+<ul class="concept-list">
+<li>Analyze match events in real time</li>
+<li>Generate stories, highlights, and recaps</li>
+<li>Explain key moments and tactical patterns</li>
+<li>Expand datasets for AI and analytics</li>
+<li>Deliver insights for fans around the world in multiple languages</li>
+<li>Deliver personalized experiences for studios, streaming platforms, and fans</li>
+</ul>
+
+<h2 class="sub-heading">Resources</h2>
+<h2 class="sub-heading">Register and join live sessions</h2>
+<ul class="res">
+<li><a href="https://events.microsoft.com/flow/microsoft/plmshackathon/registration/page/landing?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Register for the hackathon</a><p>Free to join. Registration closes October 20, 2026, 12:00 PM Pacific Time.</p></li>
+<li><a href="https://developer.microsoft.com/reactor/series/S-1709/?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Live Microsoft Reactor sessions</a><p>Technical guidance and inspiration from live sessions for this hackathon.</p></li>
+<li><a href="https://azure.microsoft.com/free/students?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Free Azure credits for students</a><p>Azure for Students, so you can build and test on Azure.</p></li>
+</ul>
+<h2 class="sub-heading">Learn: free training by topic</h2>
+<ul class="res">
+<li><a href="https://learn.microsoft.com/training/azure/ai-foundry?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Microsoft Foundry</a><p>Start here: the Foundry portal, SDKs, agents and evaluation.</p></li>
+<li><a href="https://learn.microsoft.com/training/paths/get-started-ai-apps-agents/?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Build AI apps and agents on Azure</a><p>Generative AI and agents in Foundry. Useful for generating stories, highlights and recaps.</p></li>
+<li><a href="https://learn.microsoft.com/training/paths/develop-ai-agents-azure/?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Build AI agents with Foundry Agent Service</a><p>Agents, MCP tools and multi-agent solutions. Useful for personalized experiences.</p></li>
+<li><a href="https://learn.microsoft.com/training/modules/get-started-kusto-fabric?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Real-Time Intelligence in Microsoft Fabric</a><p>Ingest, query and visualize streams of events. Useful for analyzing match events in real time.</p></li>
+<li><a href="https://learn.microsoft.com/training/modules/translate-text-speech/?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Translate text and speech</a><p>Azure Translator and Speech in Foundry Tools. Useful for delivering insights in multiple languages.</p></li>
+<li><a href="https://learn.microsoft.com/training/modules/get-started-github-copilot?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Get started with GitHub Copilot</a><p>Install and use the Copilot extensions in Visual Studio Code.</p></li>
+</ul>
+<h2 class="sub-heading">Blogs and docs</h2>
+<ul class="res">
+<li><a href="https://devblogs.microsoft.com/foundry/?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Microsoft Foundry blog</a><p>Latest updates on building and running agents with Foundry.</p></li>
+<li><a href="https://blog.fabric.microsoft.com/blog/category/real-time-intelligence?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">Fabric Real-Time Intelligence blog</a><p>Posts on Eventstream, Eventhouse and real-time dashboards.</p></li>
+<li><a href="https://code.visualstudio.com/docs/copilot/overview?wt.mc_id=studentamb_654871" target="_blank" rel="noopener">GitHub Copilot in VS Code</a><p>Official guide to completions, chat and agent features in VS Code.</p></li>
+</ul>
+<footer class="doc-footer">Curated by Anurag Dashore. All links go to Microsoft sites.</footer>
+</div>
+</div>
+</div>
+</body>
+</html>
