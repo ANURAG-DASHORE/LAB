@@ -4,6 +4,8 @@ Microsoft + Premier League.
 
 ![Inside the Game poster](inside-the-game-poster.jpg)
 
+*Unofficial community poster by Anurag Dashore.*
+
 ## Overview
 
 Microsoft and the Premier League invite developers worldwide to join Inside the Game: Developer Hackathon and build AI-powered solutions that transform synthetic, football-realistic data into explainable match intelligence, real-time narratives, and automated match recaps for studio, broadcast, or streaming scenarios.
