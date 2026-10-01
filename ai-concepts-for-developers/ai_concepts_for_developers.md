@@ -4,7 +4,7 @@ This guide synthesizes core artificial intelligence concepts based on Microsoft 
 
 ## Module 1: Get Started with AI Fundamentals
 
-*Source: [Microsoft Learn - Get Started with AI Fundamentals](https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/?wt.mc_id=studentamb_654871)*
+*Source: [Microsoft Learn - Get Started with AI Fundamentals](https://learn.microsoft.com/training/modules/get-started-ai-fundamentals/?wt.mc_id=studentamb_654871)*
 
 ### Overview
 
@@ -22,7 +22,7 @@ Artificial Intelligence (AI) is a broad field of computer science focused on cre
 
 ## Module 2: Fundamentals of Generative AI
 
-*Source: [Microsoft Learn - Fundamentals of Generative AI](https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/?wt.mc_id=studentamb_654871)*
+*Source: [Microsoft Learn - Fundamentals of Generative AI](https://learn.microsoft.com/training/modules/fundamentals-generative-ai/?wt.mc_id=studentamb_654871)*
 
 ### Overview
 
@@ -40,7 +40,7 @@ Generative AI shifts AI from analytical tasks (classification, regression) to cr
 
 ## Module 3: Introduction to Natural Language Processing (Language)
 
-*Source: [Microsoft Learn - Introduction to Natural Language Processing](https://learn.microsoft.com/en-us/training/modules/introduction-language/?wt.mc_id=studentamb_654871)*
+*Source: [Microsoft Learn - Introduction to Natural Language Processing](https://learn.microsoft.com/training/modules/introduction-language/?wt.mc_id=studentamb_654871)*
 
 ### Overview
 
@@ -58,7 +58,7 @@ Natural Language Processing (NLP) enables software to read, analyze, interpret, 
 
 ## Module 4: Introduction to AI Speech
 
-*Source: [Microsoft Learn - Introduction to AI Speech](https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/?wt.mc_id=studentamb_654871)*
+*Source: [Microsoft Learn - Introduction to AI Speech](https://learn.microsoft.com/training/modules/introduction-ai-speech/?wt.mc_id=studentamb_654871)*
 
 ### Overview
 
@@ -74,7 +74,7 @@ Speech services empower applications with audio capabilities, turning spoken lan
 
 ## Module 5: Introduction to Computer Vision
 
-*Source: [Microsoft Learn - Introduction to Computer Vision](https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/?wt.mc_id=studentamb_654871)*
+*Source: [Microsoft Learn - Introduction to Computer Vision](https://learn.microsoft.com/training/modules/introduction-computer-vision/?wt.mc_id=studentamb_654871)*
 
 ### Overview
 
@@ -92,7 +92,7 @@ Computer vision enables software systems to derive meaningful information from d
 
 ## Module 6: Introduction to Information Extraction
 
-*Source: [Microsoft Learn - Introduction to Information Extraction](https://learn.microsoft.com/en-us/training/modules/introduction-information-extraction/?wt.mc_id=studentamb_654871)*
+*Source: [Microsoft Learn - Introduction to Information Extraction](https://learn.microsoft.com/training/modules/introduction-information-extraction/?wt.mc_id=studentamb_654871)*
 
 ### Overview
 
@@ -108,7 +108,7 @@ Information extraction automates the transformation of unstructured or semi-stru
 
 ## Module 7: Retrieval-Augmented Generation (RAG) Fundamentals
 
-*Source: [Microsoft Learn - RAG Fundamentals](https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/?wt.mc_id=studentamb_654871)*
+*Source: [Microsoft Learn - RAG Fundamentals](https://learn.microsoft.com/training/modules/rag-fundamentals/?wt.mc_id=studentamb_654871)*
 
 ### Overview
 

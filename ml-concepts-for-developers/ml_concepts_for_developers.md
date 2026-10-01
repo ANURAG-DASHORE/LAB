@@ -4,7 +4,7 @@ This guide synthesizes core machine learning concepts based on the Microsoft Lea
 
 ## Module 1: Introduction to Machine Learning Concepts
 
-*Source Link: [Microsoft Learn - Introduction to Machine Learning Concepts](https://learn.microsoft.com/en-us/training/modules/fundamentals-machine-learning/?wt.mc_id=studentamb_654871)*
+*Source Link: [Microsoft Learn - Introduction to Machine Learning Concepts](https://learn.microsoft.com/training/modules/fundamentals-machine-learning/?wt.mc_id=studentamb_654871)*
 
 ### Overview
 
@@ -22,7 +22,7 @@ Machine learning is the basis for most modern AI solutions. For developers, it m
 
 ## Module 2: Explore and Analyze Data with Python
 
-*Source Link: [Microsoft Learn - Explore and Analyze Data with Python](https://learn.microsoft.com/en-us/training/modules/explore-analyze-data-with-python/?wt.mc_id=studentamb_654871)*
+*Source Link: [Microsoft Learn - Explore and Analyze Data with Python](https://learn.microsoft.com/training/modules/explore-analyze-data-with-python/?wt.mc_id=studentamb_654871)*
 
 ### Overview
 
@@ -38,7 +38,7 @@ Data exploration and analysis sit at the core of data science. Before any model 
 
 ## Module 3: Train and Evaluate Regression Models
 
-*Source Link: [Microsoft Learn - Train and Evaluate Regression Models](https://learn.microsoft.com/en-us/training/modules/train-evaluate-regression-models/?wt.mc_id=studentamb_654871)*
+*Source Link: [Microsoft Learn - Train and Evaluate Regression Models](https://learn.microsoft.com/training/modules/train-evaluate-regression-models/?wt.mc_id=studentamb_654871)*
 
 ### Overview
 
@@ -54,7 +54,7 @@ Regression is a supervised learning technique for predicting numeric values. Thi
 
 ## Module 4: Train and Evaluate Classification Models
 
-*Source Link: [Microsoft Learn - Train and Evaluate Classification Models](https://learn.microsoft.com/en-us/training/modules/train-evaluate-classification-models/?wt.mc_id=studentamb_654871)*
+*Source Link: [Microsoft Learn - Train and Evaluate Classification Models](https://learn.microsoft.com/training/modules/train-evaluate-classification-models/?wt.mc_id=studentamb_654871)*
 
 ### Overview
 
@@ -70,7 +70,7 @@ Classification is a supervised learning technique that assigns items to categori
 
 ## Module 5: Train and Evaluate Clustering Models
 
-*Source Link: [Microsoft Learn - Train and Evaluate Clustering Models](https://learn.microsoft.com/en-us/training/modules/train-evaluate-cluster-models/?wt.mc_id=studentamb_654871)*
+*Source Link: [Microsoft Learn - Train and Evaluate Clustering Models](https://learn.microsoft.com/training/modules/train-evaluate-cluster-models/?wt.mc_id=studentamb_654871)*
 
 ### Overview
 
@@ -86,7 +86,7 @@ Clustering is an unsupervised technique that groups similar items into clusters 
 
 ## Module 6: Train and Evaluate Deep Learning Models
 
-*Source Link: [Microsoft Learn - Train and Evaluate Deep Learning Models](https://learn.microsoft.com/en-us/training/modules/train-evaluate-deep-learn-models/?wt.mc_id=studentamb_654871)*
+*Source Link: [Microsoft Learn - Train and Evaluate Deep Learning Models](https://learn.microsoft.com/training/modules/train-evaluate-deep-learn-models/?wt.mc_id=studentamb_654871)*
 
 ### Overview
 
