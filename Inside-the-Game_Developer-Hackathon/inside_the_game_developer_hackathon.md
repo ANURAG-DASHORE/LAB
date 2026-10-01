@@ -35,6 +35,7 @@ The strongest submissions will leverage GitHub, GitHub Copilot, Microsoft Foundr
 - **[Register for the hackathon](https://events.microsoft.com/flow/microsoft/plmshackathon/registration/page/landing?wt.mc_id=studentamb_654871)**: Free to join. Registration closes October 20, 2026, 12:00 PM Pacific Time.
 - **[Live Microsoft Reactor sessions](https://developer.microsoft.com/reactor/series/S-1709/?wt.mc_id=studentamb_654871)**: Technical guidance and inspiration from live sessions for this hackathon.
 - **[Free Azure credits for students](https://azure.microsoft.com/free/students?wt.mc_id=studentamb_654871)**: Azure for Students, so you can build and test on Azure.
+- **[Azure free services (general)](https://azure.microsoft.com/pricing/free-services?sortBy=newest-oldest&wt.mc_id=studentamb_654871)**: Azure free services list: services free for your first 12 months, plus 65+ always-free services. Great if you aren't eligible for the student tier.
 
 ## Learn: free training by topic
 
